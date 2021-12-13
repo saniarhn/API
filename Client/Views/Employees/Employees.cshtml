@@ -1,0 +1,748 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    ViewBag.Title = "List Employee";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+<button type="button" class="btn btn-primary mb-4" data-toggle="modal" data-target="#CreateEmployee">
+    Create
+</button>
+<table id="table" class="table mt-4 table-hover dt-responsive nowrap bg-light text-info text-capitalize text-center" style="width:100%">
+    <thead class="thead-light ">
+        <tr>
+            <th scope="col" class="text-info text-center" colspan="10"><h3>List Employees</h3></th>
+        </tr>
+        <tr>
+            <th scope="col" class="text-info">No</th>
+            <th scope="col" class="text-info">NIK</th>
+            <th scope="col" class="text-info">Full Name</th>
+            <th scope="col" class="text-info">Gender</th>
+            <th scope="col" class="text-info">Phone</th>
+            <th scope="col" class="text-info">Email</th>
+            <th scope="col" class="text-info">BirthDate</th>
+            <th scope="col" class="text-info">Salary</th>
+            <th scope="col" class="text-info">Action</th>
+        </tr>
+    </thead>
+    <tbody id="">
+    </tbody>
+</table>
+
+<div class="modal fade" id="DetailEmployee" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog  modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-info" id="exampleModalLabel">Detail</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                @*           <button type="button" class="btn btn-primary">Save changes</button>*@
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@*<div class="modal fade" id="CreateEmployee" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="EmployeeCreateForm"  class="needs-validation" novalidate>
+                        <div class="form-group">
+                            <label for="nik">NIK</label>
+                            <input type="text" class="form-control" id="insertnik" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="fname">First Name</label>
+                            <input type="text" class="form-control" id="insertfirstName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="lname">Last Name</label>
+                            <input type="text" class="form-control" id="insertlastName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="Email">Email address</label>
+                            <input type="email" class="form-control" id="insertemail" aria-describedby="emailHelp" placeholder="email@mii.co.id" required>
+                            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="Phone">Phone Number</label>
+                            <input type="text" class="form-control" id="insertphone" required>
+                        </div>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary add-btn" onclick="return Insert()">Save changes</button>
+
+                    </form>
+
+                </div>
+                <div class="modal-footer">
+
+                </div>
+            </div>
+        </div>
+    </div>
+*@
+
+
+<!--<div class="modal fade" id="CreateEmployee" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="createAccount" class="needs-validation" novalidate>
+                    <div class="form-group text-left">
+                        <label for="nik">NIK</label>
+                        <input type="text" class="form-control" id="insertnik" required>
+                        <div class="valid-feedback">
+                            Looks good!
+                        </div>
+                        <div class="invalid-feedback">
+                            Please enter your ID number.
+                        </div>
+                    </div>
+                    <div class="form-row name-input">
+                        <div class="col">
+                            <div class="form-group text-left">
+                                <label for="fname">First Name</label>
+                                <input type="text" class="form-control" id="insertfirstName" required value="" />
+                                <div class="valid-feedback">
+                                    Looks good!
+                                </div>
+                                <div class="invalid-feedback">
+                                    Please enter your name.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-group text-left">
+                                <label for="lname">Last Name</label>
+                                <input type="text" class="form-control" id="insertlastName" required value="">
+                                <div class="valid-feedback">
+                                    Looks good!
+                                </div>
+                                <div class="invalid-feedback">
+                                    Please enter your name.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group email-input">
+                        <label for="Email">Email address</label>
+                        <input type="email" class="form-control" id="insertemail" aria-describedby="emailHelp" placeholder="email@mii.co.id" required>
+                        <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                        <div class="valid-feedback">
+                            Looks good!
+                        </div>
+                        <div class="invalid-feedback">
+                            Enter a valid E-Mail Address!.
+                        </div>
+                    </div>
+                    <div class="form-group phone-input">
+                        <label for="Phone">Phone Number</label>
+                        <input type="text" class="form-control" id="insertphone" required>
+                        <div class="valid-feedback">
+                            Looks good!
+                        </div>
+                        <div class="invalid-feedback">
+                            Please enter your phone number.
+                        </div>
+                    </div>
+
+
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>-->
+                   @* <button type="button" class="btn btn-primary add-btn" onclick="return Insert()">Save changes</button>*@
+                    <!--<button type="submit" class="btn btn-primary add-btn" onclick="return Insert()" onsubmit="return false">Save changes</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>-->
+
+<div class="modal fade" id="CreateEmployee" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="createAccount" class="needs-validation" novalidate>
+                    <div class="form-group text-left">
+                        <label for="nik">NIK</label>
+                        <input type="text" class="form-control" id="insertnik" required>
+                        <div class="valid-feedback">
+                            Looks good!
+                        </div>
+                        <div class="invalid-feedback">
+                            Please enter your ID number.
+                        </div>
+                    </div>
+                    <div class="form-row name-input">
+                        <div class="col">
+                            <div class="form-group text-left">
+                                <label for="fname">First Name</label>
+                                <input type="text" class="form-control" id="insertfirstName" required>
+                                <div class="valid-feedback">
+                                    Looks good!
+                                </div>
+                                <div class="invalid-feedback">
+                                    Please enter your name.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-group text-left">
+                                <label for="lname">Last Name</label>
+                                <input type="text" class="form-control" id="insertlastName" required>
+                                <div class="valid-feedback">
+                                    Looks good!
+                                </div>
+                                <div class="invalid-feedback">
+                                    Please enter your name.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    @*<div class="form-row genderbirt-input">
+                        <div class="col">
+                            <div class="form-group gender-input">
+                                <label for="gender">Gender</label>
+                                <select id="gender" class="form-control" title="Pick One">
+                                    <option selected disabled value="">Chosee..</option>
+                                    <option>Male</option>
+                                    <option>Female</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-group dateBirth-input">
+                                <label for="dateBirth">Birth Date</label>
+                                <input type="date" class="form-control" id="dateBirth" aria-describedby="birthHelp" placeholder="" required>
+
+                                <div class="valid-feedback">
+                                    Looks good!
+                                </div>
+                                <div class="invalid-feedback">
+                                    Enter a your birth date!.
+                                </div>
+                            </div>
+                        </div>
+                    </div>*@
+                    <div class="form-group email-input">
+                        <label for="Email">Email address</label>
+                        <input type="email" class="form-control" id="insertemail" aria-describedby="emailHelp" placeholder="" required>
+                        <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                        <div class="valid-feedback">
+                            Looks good!
+                        </div>
+                        <div class="invalid-feedback">
+                            Enter a valid E-Mail Address!.
+                        </div>
+                    </div>
+                    <div class="form-group phone-input">
+                        <label for="Phone">Phone Number</label>
+                        <input type="text" class="form-control" id="insertphone" required>
+                        <div class="valid-feedback">
+                            Looks good!
+                        </div>
+                        <div class="invalid-feedback">
+                            Please enter your phone number.
+                        </div>
+                    </div>
+                    <div class="form-group salary-input">
+                        <label for="salary">Salary</label>
+                        <div class="input-group mb-2">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">Rp.</div>
+                            </div>
+                            <input type="text" class="form-control" id="insertsalary" placeholder="" required>
+                            <div class="invalid-feedback">
+                                Please enter your salary.
+                            </div>
+                        </div>
+                    </div>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+             @*       <button type="button" class="btn btn-primary add-btn" onclick="return Validate()">Save changes</button>*@
+                <button type="button" class="btn btn-primary add-btn" onclick="return Insert()">Save changes</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="EditEmployee" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog  modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-info" id="exampleModalLabel">Create Employee</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">NIK</label>
+                        <input type="text" class="form-control" id="updatenik" readonly="readonly" name="NIK" value="" aria-describedby="emailHelp" placeholder="Enter Your NIK">
+
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">First Name</label>
+                        <input type="text" class="form-control" id="updatefirstName" name="FirstName" value="" aria-describedby="emailHelp" placeholder="Enter Your First Name">
+
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Last Name</label>
+                        <input type="text" class="form-control" id="updatelastName" name="LastName" value="" aria-describedby="emailHelp" placeholder="Enter Your Last Name">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Email</label>
+                        <input type="email" class="form-control" id="updateemail" name="Email" value="" aria-describedby="emailHelp" placeholder="Enter Your email">
+                        <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Phone</label>
+                        <input type="text" class="form-control" id="updatephone" name="Phone" value="" aria-describedby="emailHelp" placeholder="Enter Your Phone Number">
+                    </div>
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary" onclick="Edit()" data-dismiss="modal">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+@section Scripts{
+
+
+
+    <script stype="text/javascript">
+        $(document).ready(function () {
+            table = $("#table").DataTable({
+                pageLength: 5,
+                lengthMenu: [[5, 10, 15, 20, -1], [5, 10, 15, 20, 'All']],
+                responsive: true,
+                dom: 'lBfrtip',
+                buttons: [
+                    {
+                        title: 'List Employees',
+                        extend: 'copy',
+                        exportOptions: {
+                            columns: [0, 1, 2, 3, 4, 5, 6, 7]
+                        }
+                    },
+                    {
+                        title: 'List Employees',
+                        extend: 'csv',
+                        exportOptions: {
+                            columns: [0, 1, 2, 3, 4, 5, 6, 7]
+                        }
+                    },
+                    {
+                        title: 'List Employees',
+                        extend: 'excelHtml5',
+                        exportOptions: {
+                            columns: [0, 1, 2, 3, 4, 5, 6, 7]
+                        }
+                    },
+                    {
+                        title: 'List Employees',
+                        extend: 'pdfHtml5',
+                        exportOptions: {
+                            columns: [0, 1, 2, 3, 4, 5]
+                        }
+                    },
+                    {
+                        title: 'List Employees',
+                        extend: 'print',
+                        exportOptions: {
+                            columns: [0, 1, 2, 3, 4, 5, 6, 7]
+                        }
+                    }
+                ],
+
+                "ajax": {
+                    "url": "/employees/getall",
+                    "dataSrc": "",
+    @*                "dataSrc": "result",*@
+                    "order": [[1, 'asc']]
+                },
+                "columns": [
+                    {
+                        "data": null,
+                        "render": function (data, type, row, meta) {
+                            return meta.row + meta.settings._iDisplayStart + 1;
+                        }
+                    },
+                    {
+                        "data": "nik"
+                    },
+                    {
+                        "data": null,
+                        "render": function (data, type, row) {
+                            return `${row["firstName"]} ${row["lastName"]}`;
+                        }
+                    },
+                    {
+                        "data": null,
+                        "render": function (data, type, row) {
+                            if (row['gender'] === 0) {
+                                return `Male`;
+                            } else {
+                                return `Female`;
+                            }
+                        }
+                    },
+                    {
+                        "data": "phone"
+                    },
+                    {
+                        "data": "email"
+                    },
+                    {
+                        "data": null,
+                        "render": function (data, type, row) {
+                            return dateConversion(row["birthDate"]);
+                        }
+                    },
+                    {
+                        "data": "salary"
+                    },
+                    {
+                        "data": null,
+                        "render": function (data, type, row) {
+                            return `<button type="button" class="btn btn-info" data-toggle="modal"
+                                                                    onclick="getData('${row["nik"]}')" data-target="#DetailEmployee"
+                                                                    data-placement="top" title="Detail Employee">
+                                                                                <i class="fa fa-info-circle fa-md"></i>
+                                                                            </button>
+                                                                        <button type="submit" class="btn btn-danger" onclick="Delete('${row["nik"]}')"
+                                                                    data-placement="top" title="Delete Employee">
+                                                                              <i class="fa fa-trash"></i>
+                                                                        </button>
+                                                                        <button type="button" class="btn btn-success" data-toggle="modal"   onclick="getData2('${row["nik"]}')" data-target="#EditEmployee"
+                                                                    data-placement="top" title="Edit Employee">
+                                                                              <i class="fa fa-edit"></i>
+                                                                        </button>`;
+
+                        }
+                    }
+                ]
+            });
+
+        });
+
+        function getData(nik) {
+            $.ajax({
+                url: "/employees/get/" + nik
+            }).done((result) => {
+                console.log(result)
+                var text = ''
+                text = `<div class="text-center">
+                                                                 <p class="bdg1">
+                                                                </p>
+                                                                  <table class=" table bg-light table-hover text-info text-center">
+                                                                    <tr >
+                                                                        <td>NIK</td>
+                                                                        <td>:</td>
+                                                                        <td>${result.nik}</td>
+                                                                    </tr>
+                                                                    <tr >
+                                                                        <td>Full Name</td>
+                                                                        <td>:</td>
+                                                                        <td>${result.firstName} ${result.lastName}</td>
+                                                                    </tr>
+                                                                    <tr >
+                                                                        <td>Gender</td>
+                                                                        <td>:</td>
+                                                                        <td>${result.gender}</td>
+                                                                    </tr>
+                                                                    <tr >
+                                                                        <td>Phone</td>
+                                                                        <td>:</td>
+                                                                        <td>${result.phone}</td>
+                                                                    </tr>
+                                                                    <tr >
+                                                                        <td>Email</td>
+                                                                        <td>:</td>
+                                                                        <td>${result.email}</td>
+                                                                    </tr>
+                                                                    <tr >
+                                                                        <td>Salary</td>
+                                                                        <td>:</td>
+                                                                        <td>${result.salary}</td>
+                                                                    </tr>
+                                                                    </table>
+                                                                </div>`
+                $('.modal-body').html(text);
+            }).fail((error) => {
+                console.log(error);
+            });
+        }
+
+        function dateConversion(dates) {
+            var date = new Date(dates)
+            var newDate = ((date.getMonth() > 8) ? (date.getMonth() + 1) : ('0' + (date.getMonth() + 1))) + '/' + ((date.getDate() > 9) ? date.getDate() : ('0' + date.getDate())) + '/' + date.getFullYear()
+            return newDate
+        }
+
+
+
+        function Insert() {
+            var obj = new Object();
+            obj.nik = $("#insertnik").val();
+            obj.firstName = $("#insertfirstName").val();
+            obj.lastName = $("#insertlastName").val();
+            obj.email = $("#insertemail").val();
+            obj.phone = $("#insertphone").val();
+            obj.salary = $("#insertsalary").val();
+            @*obj.gender = $("#gender").val();
+            obj.birthDate = $("#dateBirth").val();*@
+            console.log(obj)
+
+            $.ajax({
+                //headers: {
+                //    'Accept': 'application/json',
+                //    'Content-Type': 'application/json'
+                //},
+                url: "/Employees/Post",
+                type: "Post",
+                'data': obj,
+                //'data': JSON.stringify(obj),
+                'dataType': 'json',
+                success: function (result) {
+                    console.log(result)
+                    if (result == 200) {
+                        Swal.fire(
+                            'Good job!',
+                            'Data berhasil di Submit!',
+                            'success'
+                        )
+
+                    }
+                    else if (result == 400){
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Submit Gagal!'
+                        })
+                    }
+                    table.ajax.reload();
+                   
+                },
+                error: function (error) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Submit Gagal!'
+                    })
+                }
+            })
+        }
+
+        function Delete(nik) {
+            $.ajax({
+                url: "/employees/delete/" + nik,
+                type: "DELETE",
+            }).done((result) => {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Berhasil Dihapus',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+                table.ajax.reload();
+            }).fail((error) => {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Gagal Dihapus'
+                })
+            });
+        }
+
+        function getData2(nik) {
+            $.ajax({
+                url: "/employees/get/" + nik
+            }).done((result) => {
+                console.log(result)
+                var data = result
+                $("#updatenik").attr("value", data.nik);
+                $("#updatefirstName").attr("value", data.firstName);
+                $("#updatelastName").attr("value", data.lastName);
+                $("#updateemail").attr("value", data.email);
+                $("#updatephone").attr("value", data.phone);
+
+            }).fail((error) => {
+                console.log(error);
+            });
+        }
+
+        function Edit() {
+            var obj = new Object(); //sesuaikan sendiri nama objectnya dan beserta isinya
+            //ini ngambil value dari tiap inputan di form nya
+
+            obj.NIK = $("#updatenik").val();
+            obj.FirstName = $("#updatefirstName").val();
+            obj.LastName = $("#updatelastName").val();
+            obj.Email = $("#updateemail").val();
+            obj.Phone = $("#updatephone").val();
+
+            console.log(obj);
+            //isi dari object kalian buat sesuai dengan bentuk object yang akan di post
+            $.ajax({
+              @*  headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },*@
+                type: "PUT",
+                url: "/employees/put/",
+                dataType: 'json',
+                data:obj
+        @*        data: JSON.stringify(obj)*@
+            }).done((result) => {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Berhasil Disimpan',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+                table.ajax.reload();
+            }).fail((error) => {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Gagal Disimpan'
+                })
+            })
+        }
+
+    </script>
+
+
+    <!--<script>
+        // Example starter JavaScript for disabling form submissions if there are invalid fields
+        (function () {
+            'use strict';
+            window.addEventListener('load', function () {
+                // Fetch all the forms we want to apply custom Bootstrap validation styles to
+                var forms = document.getElementsByClassName('needs-validation');
+                var button = document.querySelector('.add-btn')
+
+                button.addEventListener('click', function () {
+                    // Loop over them and prevent submission
+                    var validation = Array.prototype.filter.call(forms, function (form) {
+                        form.addEventListener('click', function (event) {
+                            console.log(form.checkValidity() === false && (($('#insertemail').val().length != 0) === false || ($('#insertnik').val().length != 0) === false));-->
+@*                            console.log(($('#insertemail').val().length != 0) === false);
+                        console.log(($('#insertnik').val().length != 0) === false);*@
+                            <!--if (form.checkValidity() === false && (($('#insertemail').val().length != 0) === false || ($('#insertnik').val().length != 0) === false) ){
+                                console.log("sini ye");
+                                event.preventDefault();
+                                event.stopPropagation();
+                            }
+                            form.classList.add('was-validated');
+                        }, false);
+                    });
+                }, false);
+            }, false);
+        })();
+    </script>-->
+
+@*<script>
+    // Example starter JavaScript for disabling form submissions if there are invalid fields
+    (function Validate() {
+        'use strict';
+        window.addEventListener('load', function () {
+            // Fetch all the forms we want to apply custom Bootstrap validation styles to
+            var forms = document.getElementsByClassName('needs-validation');
+            var button = document.querySelector('.add-btn');
+            // Loop over them and prevent submission
+            button.addEventListener('click', function () {
+            var validation = Array.prototype.filter.call(forms, function (form) {
+                form.addEventListener('click', function (event) {
+                    console.log(form.checkValidity() === false && ($('#insertemail').val().length != 0) === false)
+                    if (form.checkValidity() === false && ($('#insertemail').val().length != 0) === false) {
+                        form.classList.add('was-validated');
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Submit Gagal!'
+                        })
+                        event.preventDefault();
+                        event.stopPropagation();
+                        return false;
+                    } else {
+                        Insert()
+                        return false;
+                    }
+                }, false);
+            });
+            }, false);
+        })();
+</script>*@
+
+    @*    <script>
+            $("#EmployeeCreateForm").validate({
+
+                rules: {
+                    "insertnik": {
+                        required: true
+                    },
+                    "insertfirstName": {
+                        required: true
+                    },
+                    "insertlastName": {
+                        required: true
+                    },
+                    "insertemail": {
+                        required: true,
+                        email: true
+                    },
+                    "insertphone": {
+                        required: true
+                    }
+                },
+                errorPlacement: function (error, element) { },
+                highlight: function (element) {
+                    $(element).closest('.form-control').addClass('is-invalid');
+                },
+                unhighlight: function (element) {
+                    $(element).closest('.form-control').removeClass('is-invalid');
+                }
+
+            });
+
+
+        </script>*@
+    @*
+        <script>
+            $("#EmployeeCreateForm").validate();
+        </script>*@
+}

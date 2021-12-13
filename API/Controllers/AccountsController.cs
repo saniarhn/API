@@ -77,7 +77,8 @@ namespace API.Controllers
                 var idtoken = new JwtSecurityTokenHandler().WriteToken(token);
                 claims.Add(new Claim("TokenSecurity", idtoken.ToString()));
 
-                return Ok(new { status = HttpStatusCode.OK, token = idtoken, data = accountRepository.GetProfile(loginVM),Message = $"Login Berhasil" });
+                return Ok(result);
+               /* return Ok(new { status = HttpStatusCode.OK, token = idtoken, data = accountRepository.GetProfile(loginVM),Message = $"Login Berhasil" });*/
    /*             return Ok(new
                 {
                     status = HttpStatusCode.OK,

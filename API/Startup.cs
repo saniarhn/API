@@ -69,8 +69,18 @@ namespace API
             });
             services.AddCors(c => 
             {
+                c.AddDefaultPolicy(
+                 builder =>
+                 {
+                     builder.WithOrigins("https://localhost:44317")
+                     .AllowAnyHeader()
+                     .AllowAnyMethod()
+                     .AllowCredentials();
+                 });
                 c.AddPolicy("AllowOrigin", options => options.AllowAnyOrigin());
+
              });
+
      
         }
 
@@ -99,7 +109,7 @@ namespace API
                 }
             });
 
-
+            app.UseCors();
             app.UseAuthentication();
             app.UseAuthorization();
             app.UseCors(options => options.AllowAnyOrigin());
@@ -107,8 +117,9 @@ namespace API
             {
                 endpoints.MapControllers();
             });
+           
 
-       
+
         }
     }
 }

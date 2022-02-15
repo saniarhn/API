@@ -8,6 +8,7 @@
 <button type="button" class="btn btn-primary mb-4" data-toggle="modal" data-target="#CreateEmployee">
     Create
 </button>
+
 <table id="table" class="table mt-4 table-hover dt-responsive nowrap bg-light text-info text-capitalize text-center" style="width:100%">
     <thead class="thead-light ">
         <tr>
@@ -340,8 +341,7 @@
 
 @section Scripts{
 
-
-
+    
     <script stype="text/javascript">
         $(document).ready(function () {
             table = $("#table").DataTable({
@@ -617,10 +617,6 @@
             console.log(obj);
             //isi dari object kalian buat sesuai dengan bentuk object yang akan di post
             $.ajax({
-              @*  headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                },*@
                 type: "PUT",
                 url: "/employees/put/",
                 dataType: 'json',

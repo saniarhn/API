@@ -31,6 +31,22 @@ namespace Client.Controllers
         {
             return View();
         }
+        [HttpGet("Unauthorized/")]
+        public IActionResult Page_401()
+        {
+            return View("Page_401");
+        }
+        [HttpGet("Forbidden/")]
+        public IActionResult Page_403()
+        {
+            return View("Page_403");
+        }
+        [HttpGet("NotFound/")]
+        public IActionResult Page_404()
+        {
+            return View("Page_404");
+        }
+    
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

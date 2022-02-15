@@ -31,11 +31,24 @@ namespace Client.Repository.Data
             };
         }
 
-        public HttpStatusCode PostLogin(LoginVM loginVM)
+        /*        public HttpStatusCode PostLogin(LoginVM loginVM)
+                {
+                    StringContent content = new StringContent(JsonConvert.SerializeObject(loginVM), Encoding.UTF8, "application/json");
+                    var result = httpClient.PostAsync(address.Link + request + "Login", content).Result;
+                    return result.StatusCode;
+                }*/
+
+        public async Task<JWTokenVM> Auth(LoginVM loginVM)
         {
+            JWTokenVM token = null;
+
             StringContent content = new StringContent(JsonConvert.SerializeObject(loginVM), Encoding.UTF8, "application/json");
             var result = httpClient.PostAsync(address.Link + request + "Login", content).Result;
-            return result.StatusCode;
+
+            string apiResponse = await result.Content.ReadAsStringAsync();
+            token = JsonConvert.DeserializeObject<JWTokenVM>(apiResponse);
+
+            return token;
         }
 
     }
